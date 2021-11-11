@@ -13,25 +13,24 @@ def project_points(X, K, R, T, distortion_flag=False, distortion_params=None):
     considering distortion parameters.
     """
 
-    camera_points = T + np.matmul(R,X.T)
-    ones = np.ones((1,camera_points.shape[1]))
+    camera_points = T + np.matmul(R, X.T)
+    ones = np.ones((1, camera_points.shape[1]))
     camera_points_homo = np.concatenate((camera_points, ones))
 
     I_3 = np.identity(3)
-    zero_3 = np.zeros((3,1))
-    I_3_zero_3 = np.concatenate((I_3,zero_3), axis=1)
+    zero_3 = np.zeros((3, 1))
+    I_3_zero_3 = np.concatenate((I_3, zero_3), axis=1)
 
-    pixel_points = np.matmul(np.matmul(K, I_3_zero_3), camera_points_homo)
-    X_homo = np.c_[X, np.ones((X.shape[0], X.shape[1], 1))]
-    t = -np.matmul(R, T)
-    P = np.matmul(K, np.concatenate((R, t), axis=2))
-    x_2d_homo = np.matmul(P, X_homo.transpose(0, 2, 1))
-    x_2d = f(X / Z)
+    pixel_points_homo = np.matmul(np.matmul(K, I_3_zero_3), camera_points_homo)
+    pixel_points_x = np.reshape(pixel_points_homo[0, :] / pixel_points_homo[2, :], (pixel_points_homo.shape[1], 1))
+    pixel_points_y = np.reshape(pixel_points_homo[1, :] / pixel_points_homo[2, :], (pixel_points_homo.shape[1], 1))
+
+    pixel_points = np.concatenate((pixel_points_x, pixel_points_y), axis=1)
 
     if distortion_flag:
         pass
 
-    return x_2d
+    return pixel_points
 
 
 def project_and_draw(imgs, X_3d, K, R, T, distortion_flag, distortion_parameters):
@@ -44,9 +43,10 @@ def project_and_draw(imgs, X_3d, K, R, T, distortion_flag, distortion_parameters
 
     # create folder
     Path("results").mkdir(parents=True, exist_ok=True)
+    result_path = "./results/"
 
     # clear folder contents
-    files = glob.glob('./results/*')
+    files = glob.glob(f'{result_path}*')
     for f in files:
         os.remove(f)
 
@@ -55,9 +55,15 @@ def project_and_draw(imgs, X_3d, K, R, T, distortion_flag, distortion_parameters
         projected_points = project_points(X_3d[i], K, R[i], T[i], distortion_flag=False, distortion_params=None)
 
         # draw projected points on the image
+        for i in range(projected_points.shape[0]):
+            img = cv.circle(img, (projected_points[i][0], projected_points[i][1]),
+                            radius=0,
+                            color=(0, 0, 255),
+                            thickness=-1)
 
         # save image
-        image_name = str(i) + '.jpg'
+        image_name = result_path + str(i) + '.jpg'
+        cv.imwrite(image_name, img)
 
 
 if __name__ == '__main__':
