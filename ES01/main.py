@@ -6,6 +6,10 @@ import cv2 as cv
 import numpy as np
 import scipy.io as io
 
+blue = (255, 0, 0)
+green = (0, 255, 0)
+red = (0, 0, 255)
+
 
 def project_points(X, K, R, T, distortion_flag=False, distortion_params=None):
     """Project points from 3d world coordinates to 2d image coordinates.
@@ -28,9 +32,19 @@ def project_points(X, K, R, T, distortion_flag=False, distortion_params=None):
     pixel_points = np.concatenate((pixel_points_x, pixel_points_y), axis=1)
 
     if distortion_flag:
-        pass
 
-    return pixel_points
+        pixel_points_with_one = np.concatenate((pixel_points, np.ones((pixel_points.shape[0],1))), axis=1).T
+        pixel_points_normalized = np.matmul(np.linalg.inv(K), pixel_points_with_one)
+
+        r_2 = 1
+        r_4 = 1
+        r_6 = 1
+        factor = 1 + distortion_params[0]* r_2 + distortion_params[1]*r_4 + distortion_params[4]*r_6
+
+
+        print('')
+
+    return np.rint(pixel_points).astype(int)
 
 
 def project_and_draw(imgs, X_3d, K, R, T, distortion_flag, distortion_parameters):
@@ -52,14 +66,15 @@ def project_and_draw(imgs, X_3d, K, R, T, distortion_flag, distortion_parameters
 
     # call project_points function to project 3D points to camera coordinates
     for i, img in enumerate(imgs):
-        projected_points = project_points(X_3d[i], K, R[i], T[i], distortion_flag=False, distortion_params=None)
+        projected_points = project_points(X_3d[i], K, R[i], T[i], distortion_flag, distortion_parameters)
 
         # draw projected points on the image
-        for i in range(projected_points.shape[0]):
-            img = cv.circle(img, (projected_points[i][0], projected_points[i][1]),
+        for j in range(projected_points.shape[0]):
+            center_coordinates = (projected_points[j][0], projected_points[j][1])
+            img = cv.circle(img, center_coordinates,
                             radius=0,
-                            color=(0, 0, 255),
-                            thickness=-1)
+                            color=red,
+                            thickness=5)
 
         # save image
         image_name = result_path + str(i) + '.jpg'
