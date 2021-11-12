@@ -32,17 +32,20 @@ def project_points(X, K, R, T, distortion_flag=False, distortion_params=None):
     pixel_points = np.concatenate((pixel_points_x, pixel_points_y), axis=1)
 
     if distortion_flag:
+        pixel_points_with_one = np.concatenate((pixel_points, np.ones((pixel_points.shape[0], 1))), axis=1).T
 
-        pixel_points_with_one = np.concatenate((pixel_points, np.ones((pixel_points.shape[0],1))), axis=1).T
         pixel_points_normalized = np.matmul(np.linalg.inv(K), pixel_points_with_one)
+        principle_point = np.array([K[0][2], K[1,2]])
 
-        r_2 = 1
-        r_4 = 1
-        r_6 = 1
-        factor = 1 + distortion_params[0]* r_2 + distortion_params[1]*r_4 + distortion_params[4]*r_6
+        r_2 = np.sum(np.power(pixel_points_normalized[0:2,:], 2), axis=0)
+        r_4 = np.power(r_2, 2)
+        r_6 = np.power(r_2, 3)
+        factor = 1 + distortion_params[0] * r_2 + distortion_params[1] * r_4 + distortion_params[4]*r_6
 
-
-        print('')
+        distortion = pixel_points_normalized * factor
+        distortion[2,:] = 1
+        pixel_points_with_one = np.matmul(K, distortion)
+        pixel_points = pixel_points_with_one[0:2,:].T
 
     return np.rint(pixel_points).astype(int)
 
@@ -71,10 +74,11 @@ def project_and_draw(imgs, X_3d, K, R, T, distortion_flag, distortion_parameters
         # draw projected points on the image
         for j in range(projected_points.shape[0]):
             center_coordinates = (projected_points[j][0], projected_points[j][1])
+            color = green if distortion_flag else red
             img = cv.circle(img, center_coordinates,
                             radius=0,
-                            color=red,
-                            thickness=5)
+                            color=color,
+                            thickness=4)
 
         # save image
         image_name = result_path + str(i) + '.jpg'
@@ -85,7 +89,7 @@ if __name__ == '__main__':
     base_folder = './data/'
 
     # Consider distorition
-    dist_flag = True
+    dist_flag = False
 
     # Load the data
     # There are 25 views/or images/ and 40 3D points per view
