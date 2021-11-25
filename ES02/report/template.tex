@@ -1,0 +1,108 @@
+\documentclass[a4paper, twoside, english]{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{ihci}
+\usepackage{graphicx}
+\usepackage{subfig}
+
+\graphicspath{{./../figures/}}
+\newcommand{\br}{\textbf{R}}
+\newcommand{\qed}{\hfill \ensuremath{\Box}}
+
+
+\title{Exercise 2 \\ 3D Computer Vision}  % Replace "Template Report" with Exercise 1, Exercise 2, etc
+\author{Jingyuan Sha}                       % Replace with your names
+\date{\today}                              % Replace with current date
+
+\begin{document}
+
+\maketitle
+
+\part{Theory}
+
+\section{Homography Definition}
+
+\begin{enumerate}
+	\item  A homography is a non-singular, line preserving projective mapping $ h: P^n \mapsto P^n $. (from slide page 9.)
+	\item the degree of freedom is $ (n+1)^2-1 $
+\end{enumerate}
+
+\section{Line Preservation}
+	Let mapping $ h(\textbf{x}_i) = \textbf{H}\textbf{x}_i $, where $ \textbf{x}_i $ lies on line \textbf{l} such as $ \textbf{l}\textbf{x}_i=0 $. Then we have 
+	\[ \textbf{l} \textbf{H}^{-1}\textbf{H}\textbf{x}_i=0 \]
+	Then the mapping point $ \textbf{H}\textbf{x}_i $ lies on line $ \textbf{l}\textbf{H}^{-1} $. Thus the mapping points in projective space preserves lines.
+
+\section{Camera Center in World Coordinates}
+
+\begin{enumerate}
+	\item The camera matrix 
+	\begin{equation*}
+		\begin{bmatrix}
+			R & t \\
+			0 & 1\\
+		\end{bmatrix}
+	\end{equation*}
+	can map a homogeneous world coordinate to camera coordinate. Let $ R_C $ be the rotation matrix with respect to the world coordinate axes. Then, camera matrix is equal to the inverse of world coordinate matrix, that is
+	\begin{equation*}
+	\begin{split}
+	\begin{bmatrix}
+		R & t \\
+		0 & 1\\
+	\end{bmatrix}
+	& = \begin{bmatrix}
+		R_C & C_W \\
+		0 & 1\\
+	\end{bmatrix}^{-1}\\
+	&= \left(
+	\begin{bmatrix}
+		I & C_W \\
+		0 & 1\\
+	\end{bmatrix}
+	\begin{bmatrix}
+		R_C & 0 \\
+		0 & 1\\
+	\end{bmatrix}\right)^{-1}\\
+	& = \left(
+	\begin{bmatrix}
+		R_C & 0 \\
+		0 & 1\\
+	\end{bmatrix}\right)^{-1} 
+	\left(
+	\begin{bmatrix}
+		I & C_W \\
+		0 & 1\\
+	\end{bmatrix}\right)^{-1}\\
+	& = 
+	\begin{bmatrix}
+		R_C^T & 0 \\
+		0 & 1\\
+	\end{bmatrix}
+	\begin{bmatrix}
+		I & -C_W \\
+		0 & 1\\
+	\end{bmatrix}\\
+	& = \begin{bmatrix}
+		R_C^T & -R_C^TC_W \\
+		0 & 1\\
+	\end{bmatrix}
+	\end{split}
+	\end{equation*}	
+	Then we have 
+	\begin{equation*}
+		\begin{split}
+			R &= R_C^T \\
+			t &= -R_C^TC_W
+		\end{split}
+	\end{equation*}
+	That is $ C_W = -R_C\cdot t = -R^T \cdot t $
+
+	\item the vector $ \textbf{t} $ points the position of world origin in camera coordinates.
+\end{enumerate}
+\newpage
+
+\part{Implementation}
+
+
+
+\end{document}

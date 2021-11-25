@@ -89,7 +89,7 @@ if __name__ == '__main__':
     base_folder = './data/'
 
     # Consider distorition
-    dist_flag = False
+    dist_flag = True
 
     # Load the data
     # There are 25 views/or images/ and 40 3D points per view
