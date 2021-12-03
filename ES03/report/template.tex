@@ -1,0 +1,66 @@
+\documentclass[a4paper, twoside, english]{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{ihci}
+\usepackage{graphicx}
+\usepackage{subfig}
+
+\graphicspath{{./../figures/}}
+\newcommand{\br}{\textbf{R}}
+\newcommand{\qed}{\hfill \ensuremath{\Box}}
+
+
+\title{Exercise 3 \\ 3D Computer Vision}  % Replace "Template Report" with Exercise 1, Exercise 2, etc
+\author{Jingyuan Sha}                       % Replace with your names
+\date{\today}                              % Replace with current date
+
+\begin{document}
+
+\maketitle
+
+
+\section{Theory}
+
+\begin{enumerate}
+	\item let $ r_1, r_2$ be the first column of $ \textbf{R}_0 $ and second column of $ \textbf{R}_0 $, $ \textbf{x}_0 = (X,Y)$, then $ \textbf{x}_1 $ can be written as follows
+	\begin{equation*}
+		\textbf{x}_1 = \textbf{K}[r_1r_2\textbf{t}_0]\left(\begin{matrix}
+			X\\
+			Y\\
+			1
+		\end{matrix}\right)
+	\end{equation*}
+	\item \begin{enumerate}
+		\item Since $ \textbf{K}, \textbf{R}, \textbf{t} $ are known, thus we can calculate fundamental matrix $ F $.
+		\item Based on $ \textbf{F},  \textbf{x}_i $ , we can get epipolar lines $ \textbf{l}_i $ for both images.
+		\item Determine the corresponding ray of $ \textbf{x}_i $ in each image by epipolar lines and extrinsic matrix. 
+		\item The 3D point $ X $ is determined by the intersection of rays.
+	\end{enumerate}
+	\item Epipole can be computed as follows:
+	\begin{equation*}
+		\textbf{e}_0 = \textbf{P}_0\textbf{C}_1, \ 
+		\textbf{e}_1 = \textbf{P}_1\textbf{C}_0
+	\end{equation*}
+	The relation between epipolar line and epipole is
+	\begin{equation*}
+		\textbf{l}_1 = \textbf{F}_0\textbf{x}_0, \ 
+		\textbf{l}_0 = \textbf{F}_1\textbf{x}_1,
+	\end{equation*}
+	\item We can use 8-Point algorithm to compute $ \textbf{F} $ given $ n\geq 8 $ corresponding points $ \textbf{x}_i $ and $ \textbf{x}_i' i=1,...,n$, then the fundamental matrix $ F $ is the solution of equation system
+	\begin{equation}
+		\textbf{x}_i^{'T}\textbf{F}\textbf{x}_i = \textbf{0},\  1\leq i \leq n
+	\end{equation}
+	\item The fundamental matrix can be computed with intrinsic parameter and poses under equation
+	\begin{equation*}
+		F = K^{'-T}[t]_{\times}RK^{-1}
+	\end{equation*}
+	\item A fundamental matching problem of matching technique is aperture problem. It is make sense to match features in this way when the object moves align with the direction of indicated direction.
+	
+\end{enumerate}
+
+
+\newpage
+
+
+\end{document}
