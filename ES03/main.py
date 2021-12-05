@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.io as io
 import cv2 as cv
+import matplotlib.pyplot as plt
 
 
 def skew(a):
@@ -66,8 +67,48 @@ img_connected = np.concatenate((img0, img1), axis=0)
 y_displacement = img0.shape[0]
 for index in range(cornersCam0.shape[0]):
     start_point = (int(cornersCam0[index][0]), int(cornersCam0[index][1]))
-    end_point = (int(cornersCam1[index][0]), int(cornersCam1[index][1]+y_displacement))
+    end_point = (int(cornersCam1[index][0]), int(cornersCam1[index][1] + y_displacement))
     color = (np.random.randint(255), np.random.randint(255), np.random.randint(255))
     img_connected = cv.line(img_connected, start_point, end_point, color, thickness=5)
 
 cv.imwrite('./' + 'matches.jpg', img_connected)
+
+####################### 2. Structure Reconstruction ################################
+
+# triangulate the 3D positions in the world c.s.
+P_0 = K_0 @ np.c_[R_0, t_0.T]
+P_1 = K_1 @ np.c_[R_1, t_1.T]
+
+X_array = np.zeros((1, 3))
+for index in range(cornersCam0.shape[0]):
+    A = np.array([
+        cornersCam0[index][1] * P_0[2, :] - P_0[1, :],
+        P_0[0, :] - cornersCam0[index][0] * P_0[2, :],
+        cornersCam1[index][1] * P_1[2, :] - P_1[1, :],
+        P_1[0, :] - cornersCam1[index][0] * P_1[2, :]
+    ])
+    u, s, vh = np.linalg.svd(A.T @ A)
+    X_homo = vh.T[:, -1]
+    X = np.array([[X_homo[0] / X_homo[-1], X_homo[1] / X_homo[-1], X_homo[2] / X_homo[-1]]])
+    X_array = np.vstack([X_array, X])
+
+X_array = X_array[1:, :]
+
+# Plot reconstructed chessboard points in 3D space
+fig = plt.figure(figsize=(4, 4))
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(X_array[:, 0], X_array[:, 1], X_array[:, 2])
+
+# visualize the optical center and optical axis
+
+origin_0 = np.array([t_0[0][0], t_0[0][1], t_0[0][2]])
+origin_1 = np.array([t_1[0][0], t_1[0][1], t_1[0][2]])
+ax.scatter(origin_0[0], origin_0[1], origin_0[2], color='red')
+ax.scatter(origin_1[0], origin_1[1], origin_1[2], color='green')
+
+z_0 = R_0[2, :] * 100
+z_1 = R_1[2, :] + origin_1 * 10
+ax.plot([origin_0[0], z_0[0]], [origin_0[1], z_0[1]], zs=[origin_0[2], z_0[2]], color='red')
+ax.plot([origin_1[0], z_1[0]], [origin_1[1], z_1[1]], zs=[origin_1[2], z_1[2]], color='green')
+
+plt.show()
