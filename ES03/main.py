@@ -1,7 +1,7 @@
-import numpy as np
-import scipy.io as io
 import cv2 as cv
 import matplotlib.pyplot as plt
+import numpy as np
+import scipy.io as io
 
 
 def skew(a):
@@ -28,6 +28,11 @@ R_0, t_0 = np.identity(3), np.zeros((1, 3))
 K_1_inv_t = np.linalg.inv(K_1.T)
 t_skew_symmetric = skew(t_1)
 F = K_1_inv_t @ t_skew_symmetric @ R_1 @ np.linalg.inv(K_0)
+Fu, Fs, Fvh = np.linalg.svd(F)
+if Fs[2] > 0.0001:
+    print('F is not rank 2, enforce F to rank 2.')
+    Fs[2] = 0
+    F = Fu @ np.diag(Fs) @ Fvh
 
 # b. compute the epipolar line in image camera01.jpg
 
@@ -82,13 +87,13 @@ P_1 = K_1 @ np.c_[R_1, t_1.T]
 X_array = np.zeros((1, 3))
 for index in range(cornersCam0.shape[0]):
     A = np.array([
+        cornersCam0[index][0] * P_0[2, :] - P_0[0, :],
         cornersCam0[index][1] * P_0[2, :] - P_0[1, :],
-        P_0[0, :] - cornersCam0[index][0] * P_0[2, :],
-        cornersCam1[index][1] * P_1[2, :] - P_1[1, :],
-        P_1[0, :] - cornersCam1[index][0] * P_1[2, :]
+        cornersCam1[index][0] * P_1[2, :] - P_0[0, :],
+        cornersCam1[index][1] * P_1[2, :] - P_0[1, :]
     ])
     u, s, vh = np.linalg.svd(A.T @ A)
-    X_homo = vh.T[:, -1]
+    X_homo = vh.T[:, -1]  # last column of V is the minimizer of the problem
     X = np.array([[X_homo[0] / X_homo[-1], X_homo[1] / X_homo[-1], X_homo[2] / X_homo[-1]]])
     X_array = np.vstack([X_array, X])
 
