@@ -33,7 +33,7 @@ if Fs[2] > 0.0001:
     print('F is not rank 2, enforce F to rank 2.')
     Fs[2] = 0
     F = Fu @ np.diag(Fs) @ Fvh
-
+print(F)
 # b. compute the epipolar line in image camera01.jpg
 
 # l' = Fx
@@ -56,10 +56,20 @@ for l in l_1:
 cv.imwrite('./' + 'epilines.jpg', img)
 
 # d. minimal algebraic distance to l_0
-cornersCam1_homo = np.c_[cornersCam1, np.ones(cornersCam0.shape[0])]
-l_0 = cornersCam1_homo @ F.T
-alg_dist = abs(l_0[:, 0] * cornersCam1[:, 0] + l_0[:, 1] * cornersCam1[:, 1] + l_0[:, 2]) / np.sqrt(
-    np.square(l_0[:, 0]) + np.square(l_0[:, 1]))
+cornersCam1_homo = np.c_[cornersCam1, np.ones(cornersCam1.shape[0])]
+cornersCam0_homo = cornersCam1_homo.T
+
+matches_0 = []
+for c0 in cornersCam0:
+    l_1 = F @ np.array([[c0[0]],[c0[1]], [1]])
+    distance = 100 * np.ones([len(cornersCam1_homo)])
+    for index, c1 in enumerate(cornersCam1_homo):
+        distance[index] = \
+            abs(l_1[0] * c1[0] + l_1[1] * c1[1] + l_1[2]) / np.sqrt(
+                np.square(l_1[0]) + np.square(l_1[1]))
+
+    match = cornersCam1[np.argmin(distance)]
+    matches_0.append(match)
 
 # e. connect corresponding points between images with lines
 
@@ -72,7 +82,7 @@ img_connected = np.concatenate((img0, img1), axis=0)
 y_displacement = img0.shape[0]
 for index in range(cornersCam0.shape[0]):
     start_point = (int(cornersCam0[index][0]), int(cornersCam0[index][1]))
-    end_point = (int(cornersCam1[index][0]), int(cornersCam1[index][1] + y_displacement))
+    end_point = (int(matches_0[index][0]), int(matches_0[index][1] + y_displacement))
     color = (np.random.randint(255), np.random.randint(255), np.random.randint(255))
     img_connected = cv.line(img_connected, start_point, end_point, color, thickness=5)
 
