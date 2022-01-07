@@ -61,7 +61,7 @@ cornersCam0_homo = cornersCam1_homo.T
 
 matches_0 = []
 for c0 in cornersCam0:
-    l_1 = F @ np.array([[c0[0]],[c0[1]], [1]])
+    l_1 = F @ np.array([[c0[0]], [c0[1]], [1]])
     distance = 100 * np.ones([len(cornersCam1_homo)])
     for index, c1 in enumerate(cornersCam1_homo):
         distance[index] = \
@@ -96,16 +96,25 @@ P_1 = K_1 @ np.c_[R_1, t_1.T]
 
 X_array = np.zeros((1, 3))
 for index in range(cornersCam0.shape[0]):
-    A = np.array([
-        cornersCam0[index][0] * P_0[2, :] - P_0[0, :],
-        cornersCam0[index][1] * P_0[2, :] - P_0[1, :],
-        cornersCam1[index][0] * P_1[2, :] - P_0[0, :],
-        cornersCam1[index][1] * P_1[2, :] - P_0[1, :]
-    ])
-    u, s, vh = np.linalg.svd(A.T @ A)
+    p_0_1, p_0_2, p_0_3 = P_0[0, :], P_0[1, :], P_0[2, :]
+    p_1_1, p_1_2, p_1_3 = P_1[0, :], P_1[1, :], P_1[2, :]
+    x0, y0 = cornersCam0[index]
+    x1, y1 = matches_0[index]
+    A = np.asarray([p_0_3 * x0 - p_0_1,
+                    p_0_3 * y0 - p_0_2,
+                    p_1_3 * x1 - p_1_1,
+                    p_1_3 * y1 - p_1_2])
+    """   A = np.asarray([
+           cornersCam0[index][0] * P_0[2, :] - P_0[0, :],
+           cornersCam0[index][1] * P_0[2, :] - P_0[1, :],
+           matches_0[index][0] * P_1[2, :] - P_0[0, :],
+           matches_0[index][1] * P_1[2, :] - P_0[1, :]
+       ])
+    """
+    u, s, vh = np.linalg.svd(A)
     X_homo = vh.T[:, -1]  # last column of V is the minimizer of the problem
-    X = np.array([[X_homo[0] / X_homo[-1], X_homo[1] / X_homo[-1], X_homo[2] / X_homo[-1]]])
-    X_array = np.vstack([X_array, X])
+    X = X_homo / X_homo[-1]
+    X_array = np.vstack([X_array, X[:-1]])
 
 X_array = X_array[1:, :]
 
@@ -117,12 +126,14 @@ ax.scatter(X_array[:, 0], X_array[:, 1], X_array[:, 2])
 # visualize the optical center and optical axis
 
 origin_0 = np.array([t_0[0][0], t_0[0][1], t_0[0][2]])
-origin_1 = np.array([t_1[0][0], t_1[0][1], t_1[0][2]])
+
+origin_1 = np.dot(np.linalg.inv(R_1), -t_1.reshape(3))
 ax.scatter(origin_0[0], origin_0[1], origin_0[2], color='red')
 ax.scatter(origin_1[0], origin_1[1], origin_1[2], color='green')
 
 z_0 = R_0[2, :] * 100
-z_1 = R_1[2, :] + origin_1 * 10
+z_1 = np.linalg.inv(R_1) @ np.array([[0], [0], [10]])
+z_1 = z_1.reshape(3)
 ax.plot([origin_0[0], z_0[0]], [origin_0[1], z_0[1]], zs=[origin_0[2], z_0[2]], color='red')
 ax.plot([origin_1[0], z_1[0]], [origin_1[1], z_1[1]], zs=[origin_1[2], z_1[2]], color='green')
 
