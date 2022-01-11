@@ -1,0 +1,41 @@
+\documentclass[a4paper, twoside, english]{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{ihci}
+\usepackage{graphicx}
+\usepackage{subfig}
+
+\graphicspath{{./../figures/}}
+\newcommand{\br}{\textbf{R}}
+\newcommand{\qed}{\hfill \ensuremath{\Box}}
+
+
+\title{Exercise 4 \\ 3D Computer Vision}  % Replace "Template Report" with Exercise 1, Exercise 2, etc
+\author{Jingyuan Sha}                       % Replace with your names
+\date{\today}                              % Replace with current date
+
+\begin{document}
+
+\maketitle
+
+
+\section{Theory}
+% find correspondences
+% if the epipolor geometry is known
+% correspondence search reduces to a 1-D search
+\begin{enumerate}
+	\item the epipolar line of each point in a pair of rectified images is just along the horizontal scanlines. Thus in rectified images, with knowing a point, the correspondence can be searched along the scanline.
+	\item The triangulation can be simplified based on rectified images, the Z-coordinate is depend on the disparity. Based on Z-coordinate, focal length, and image point, we can calculate X and Y coordinates.
+	\item Image rectification is not a good approach in multi-view dense reconstruction, since the correspondences might not exist in any two images at the same time, which could lead to solving a similar triangle problem with infinity scale. 
+\end{enumerate}
+
+
+% image rectification simplify the search for correspondences
+
+
+
+\newpage
+
+
+\end{document}
