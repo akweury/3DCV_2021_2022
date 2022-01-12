@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.11.2)  9 JAN 2022 07:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.11.2)  12 JAN 2022 12:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -416,22 +416,22 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 (./template.aux)
 \openout1 = `template.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
 \c@lstlisting=\count288
 
 *geometry* driver: auto-detecting
@@ -469,7 +469,7 @@ LaTeX Font Info:    ... okay on input line 18.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box50
-Package hyperref Info: Link coloring OFF on input line 18.
+Package hyperref Info: Link coloring OFF on input line 17.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 
@@ -481,9 +481,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count289
 )
-LaTeX Info: Redefining \ref on input line 18.
-LaTeX Info: Redefining \pageref on input line 18.
-LaTeX Info: Redefining \nameref on input line 18.
+LaTeX Info: Redefining \ref on input line 17.
+LaTeX Info: Redefining \pageref on input line 17.
+LaTeX Info: Redefining \nameref on input line 17.
 
 (./template.out) (./template.out)
 \@outlinefile=\write3
@@ -516,74 +516,140 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 2
-1.
+0.
 
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 2
-1.
+0.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-21.
+20.
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-21.
+20.
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 21.
+(Font)              <12> on input line 20.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 21.
+(Font)              <8> on input line 20.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 21.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 21.
+(Font)              <6> on input line 20.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 20.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 21.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 20.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+<../data/medieval_port/left.jpg, id=12, 642.4pt x 481.8pt>
+File: ../data/medieval_port/left.jpg Graphic file (type jpg)
+<use ../data/medieval_port/left.jpg>
+Package pdftex.def Info: ../data/medieval_port/left.jpg  used on input line 44.
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 41.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 41.
+(pdftex.def)             Requested size: 136.57462pt x 102.43076pt.
+<../data/medieval_port/right.jpg, id=13, 642.4pt x 481.8pt>
+File: ../data/medieval_port/right.jpg Graphic file (type jpg)
+<use ../data/medieval_port/right.jpg>
+Package pdftex.def Info: ../data/medieval_port/right.jpg  used on input line 49
+.
+(pdftex.def)             Requested size: 136.57462pt x 102.43076pt.
+<../pixelDisparity.jpg, id=14, 642.4pt x 481.8pt>
+File: ../pixelDisparity.jpg Graphic file (type jpg)
+<use ../pixelDisparity.jpg>
+Package pdftex.def Info: ../pixelDisparity.jpg  used on input line 54.
+(pdftex.def)             Requested size: 136.57462pt x 102.43076pt.
+<../nccDisparity7x7.jpg, id=15, 642.4pt x 481.8pt>
+File: ../nccDisparity7x7.jpg Graphic file (type jpg)
+<use ../nccDisparity7x7.jpg>
+Package pdftex.def Info: ../nccDisparity7x7.jpg  used on input line 67.
+(pdftex.def)             Requested size: 204.85846pt x 153.64247pt.
+<../ssdDisparity7x7.jpg, id=16, 642.4pt x 481.8pt>
+File: ../ssdDisparity7x7.jpg Graphic file (type jpg)
+<use ../ssdDisparity7x7.jpg>
+Package pdftex.def Info: ../ssdDisparity7x7.jpg  used on input line 72.
+(pdftex.def)             Requested size: 204.85846pt x 153.64247pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<../ssdDisparity3x3.jpg, id=17, 642.4pt x 481.8pt>
+File: ../ssdDisparity3x3.jpg Graphic file (type jpg)
+<use ../ssdDisparity3x3.jpg>
+Package pdftex.def Info: ../ssdDisparity3x3.jpg  used on input line 80.
+(pdftex.def)             Requested size: 136.57462pt x 102.43076pt.
+<../ssdDisparity5x5.jpg, id=18, 642.4pt x 481.8pt>
+File: ../ssdDisparity5x5.jpg Graphic file (type jpg)
+<use ../ssdDisparity5x5.jpg>
+Package pdftex.def Info: ../ssdDisparity5x5.jpg  used on input line 85.
+(pdftex.def)             Requested size: 136.57462pt x 102.43076pt.
+File: ../ssdDisparity7x7.jpg Graphic file (type jpg)
+<use ../ssdDisparity7x7.jpg>
+Package pdftex.def Info: ../ssdDisparity7x7.jpg  used on input line 90.
+(pdftex.def)             Requested size: 136.57462pt x 102.43076pt.
+<../nccDisparity3x3.jpg, id=19, 642.4pt x 481.8pt>
+File: ../nccDisparity3x3.jpg Graphic file (type jpg)
+<use ../nccDisparity3x3.jpg>
+Package pdftex.def Info: ../nccDisparity3x3.jpg  used on input line 95.
+(pdftex.def)             Requested size: 136.57462pt x 102.43076pt.
+<../nccDisparity5x5.jpg, id=20, 642.4pt x 481.8pt>
+File: ../nccDisparity5x5.jpg Graphic file (type jpg)
+<use ../nccDisparity5x5.jpg>
+Package pdftex.def Info: ../nccDisparity5x5.jpg  used on input line 100.
+(pdftex.def)             Requested size: 136.57462pt x 102.43076pt.
+File: ../nccDisparity7x7.jpg Graphic file (type jpg)
+<use ../nccDisparity7x7.jpg>
+Package pdftex.def Info: ../nccDisparity7x7.jpg  used on input line 105.
+(pdftex.def)             Requested size: 136.57462pt x 102.43076pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <../data/medieval_port/left
+.jpg> <../data/medieval_port/right.jpg> <../pixelDisparity.jpg>] [2 <../nccDisp
+arity7x7.jpg> <../ssdDisparity7x7.jpg> <../ssdDisparity3x3.jpg> <../ssdDisparit
+y5x5.jpg> <../nccDisparity3x3.jpg> <../nccDisparity5x5.jpg>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 128.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 128.
  (./template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 41.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 41.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 128.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 128.
 Package rerunfilecheck Info: File `template.out' has not changed.
-(rerunfilecheck)             Checksum: 8B170722119AD77064741DBC55B25C1D;41.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 41.
+(rerunfilecheck)             Checksum: 78FC5282068036C3991FB6E3ADF7F2A1;85.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 128.
  ) 
 Here is how much of TeX's memory you used:
- 10147 strings out of 481239
- 152923 string characters out of 5920377
- 490447 words of memory out of 5000000
- 25218 multiletter control sequences out of 15000+600000
+ 10228 strings out of 481239
+ 154597 string characters out of 5920377
+ 497447 words of memory out of 5000000
+ 25269 multiletter control sequences out of 15000+600000
  559599 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 50i,6n,48p,272b,329s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 50i,8n,48p,282b,504s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/
 public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/sh
 are/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/
 lm/lmr17.pfb>
-Output written on template.pdf (1 page, 97921 bytes).
+Output written on template.pdf (2 pages, 1298599 bytes).
 PDF statistics:
- 38 PDF objects out of 1000 (max. 8388607)
- 30 compressed objects within 1 object stream
- 6 named destinations out of 1000 (max. 500000)
- 9 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 78 PDF objects out of 1000 (max. 8388607)
+ 60 compressed objects within 1 object stream
+ 26 named destinations out of 1000 (max. 500000)
+ 62 words of extra memory for PDF output out of 10000 (max. 10000000)
 
