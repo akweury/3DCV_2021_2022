@@ -19,8 +19,8 @@ os.makedirs(f'./{experiment}', exist_ok=True)
 scale_factor = 1
 
 # Choose similarity metric
-# similarity_metric = 'ncc'
-similarity_metric = 'ssd'
+similarity_metric = 'ncc'
+# similarity_metric = 'ssd'
 
 # Outlier Filtering Threshold. You can test other values, too.
 # This is a parameter which you have to select carefully for each dataset
@@ -303,16 +303,19 @@ def window_matching(img_left, img_right, sim_metric):
 
     costs = np.array(costs[:, :, 1:])
 
-    costs = mask_outliers(costs, similarity_metric, outlier_threshold)
+    # costs = mask_outliers(costs, similarity_metric, outlier_threshold)
 
     if sim_metric == 'ncc':
-        disparity = np.argmax(costs, axis=2)
+        matching_distance = np.argmax(costs, axis=2)
+        # TODO calculate the disparity, x_L - x_R based on image coordinate system.
+
     else:
         disparity = np.argmin(costs, axis=2)
 
     # 2. convert estimated disparity to depth, save it to file
     depth = disparity_to_depth(disparity, baseline)
-    # depth = np.where(depth < np.max(depth) - 1, depth, depth * 0)
+
+    depth = np.where(depth < np.max(depth) - 1, depth, 0)
 
     file_name = f'{dataset}_{sim_metric}_N_{outlier_threshold}_Disparity{patch_width}x{patch_width}.jpg'
     write_depth_to_file(depth, file_name)
@@ -328,8 +331,8 @@ def stereo_matching(img_left, img_right, patch_width):
     # This is the main function for your implementation
     # make sure you do the following tasks
     # 1. estimate disparity for every pixel in the left image
-    depth = pixel_matching(img_left, img_right)
-    # depth = window_matching(img_left, img_right, similarity_metric)
+    # depth = pixel_matching(img_left, img_right)
+    depth = window_matching(img_left, img_right, similarity_metric)
 
     # 3. convert depth to 3D points and save it as colored point cloud using the ply_creator function
     points_3d = depth_to_3d(depth, kmat)
