@@ -51,7 +51,7 @@
 			\end{minipage}
 			\hfill
 			\begin{minipage}[b]{0.3\textwidth}
-				\includegraphics[width=\textwidth]{../pixelDisparity.jpg}
+				\includegraphics[width=\textwidth]{../medieval_port_pixel_N_2_Disparity7x7.jpg}
 				\caption{pixel-based matching.}
 			\end{minipage}
 			\hfill
@@ -110,12 +110,36 @@
 		\item the quality of the disparity map improved a little bit in window-based results. Since the similar points are reduced based on a bigger matching window.
 		\item see code
 		\item See Figure 12.
+		\begin{figure}
+				\includegraphics[width=\textwidth]{../meshlab_ss.png}
+				\caption{Meshlab Screenshot ncc 7x7.}
+		\end{figure}
 	\end{enumerate}
 	
 	\item 
 	\begin{enumerate}
-		\item The result is shown in the figures.
-		\item The result is shown in the figures.
+		\item The result is shown in the figure 13-14.
+		\begin{figure}
+			\begin{minipage}[b]{0.45\textwidth}
+				\includegraphics[width=\textwidth]{../outlier_ssd_n3.png}
+				\caption{ssd Filtering N=3.}
+			\end{minipage}
+			\begin{minipage}[b]{0.45\textwidth}
+			\includegraphics[width=\textwidth]{../outlier_ssd_n4.png}
+			\caption{ssd Filtering N=4.}
+			\end{minipage}
+		\end{figure}
+		\item The result is shown in the figure 15-16.
+		\begin{figure}
+		\begin{minipage}[b]{0.45\textwidth}
+			\includegraphics[width=\textwidth]{../outlier_ncc_n2.png}
+			\caption{ncc Filtering N=2.}
+		\end{minipage}
+		\begin{minipage}[b]{0.45\textwidth}
+			\includegraphics[width=\textwidth]{../outlier_ncc_n4.png}
+			\caption{ncc Filtering N=4.}
+			\end{minipage}
+		\end{figure}
 		\item with bigger window size, the reconstruction quality goes better with fewer isolated areas, with smaller window size, the quality goes worse but with more details. With the size of window increasing, the the processing time increases as well.
 	\end{enumerate} 
 \end{enumerate}

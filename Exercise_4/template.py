@@ -8,15 +8,12 @@ from sklearn.feature_extraction import image
 # Select the dataset
 dataset = 'medieval_port'
 # dataset = 'kitti'
-
 experiment = 'medieval_port_exp_one'
-
 os.makedirs(f'./{experiment}', exist_ok=True)
-
 # While experimenting it is better to work with a lower resolution version of the image
 # Since the dataset is of high resolution we will work with resized version.
 # You can choose the reduction factor using the scale_factor variable.
-scale_factor = 1
+scale_factor = 2
 
 # Choose similarity metric
 similarity_metric = 'ncc'
@@ -24,12 +21,12 @@ similarity_metric = 'ncc'
 
 # Outlier Filtering Threshold. You can test other values, too.
 # This is a parameter which you have to select carefully for each dataset
-outlier_threshold = 3
+outlier_threshold = 2
 
 # Patch Size
 # Experiment with other values like 3, 5, 7,9,11,15,13,17 and observe the result
 
-patch_width = 7
+patch_width = 3
 
 if dataset == 'kitti':
     # Minimum and maximum disparies
@@ -303,11 +300,10 @@ def window_matching(img_left, img_right, sim_metric):
 
     costs = np.array(costs[:, :, 1:])
 
-    # costs = mask_outliers(costs, similarity_metric, outlier_threshold)
+    costs = mask_outliers(costs, similarity_metric, outlier_threshold)
 
     if sim_metric == 'ncc':
-        matching_distance = np.argmax(costs, axis=2)
-        # TODO calculate the disparity, x_L - x_R based on image coordinate system.
+        disparity = np.argmax(costs, axis=2)
 
     else:
         disparity = np.argmin(costs, axis=2)
