@@ -16,13 +16,13 @@ os.makedirs(f'./{experiment}', exist_ok=True)
 # While experimenting it is better to work with a lower resolution version of the image
 # Since the dataset is of high resolution we will work with down-scaled version of the image.
 # You can choose the reduction factor using the scale_factor variable.
-scale_factor =1
+scale_factor = 2
 
 # Choose similarity metric by uncommenting you choice below
 
 # similarity_metric = 'pixel'
-# similarity_metric = 'ncc'
-similarity_metric = 'ssd'
+similarity_metric = 'ncc'
+# similarity_metric = 'ssd'
 
 # Outlier Filtering Threshold. You can test other values, too.
 # This is a parameter which you have to select carefully for each dataset
@@ -180,29 +180,17 @@ def ssd(feature_1, feature_2):
     '''
     Compute the sum of square difference between the input features
     '''
-    img_h, img_w, ch = feature_1.shape
-    ssd_scores = np.zeros((img_h, img_w))
-    for i in range(img_h):
-        for j in range(img_w):
-            ssd_scores[i, j] = np.sum(np.square(feature_1[i, j] - feature_2[i, j]))
-    return ssd_scores
+    return np.sum(np.square(feature_1 - feature_2), axis=2)
 
 
 def ncc(feature_1, feature_2):
     '''
     Normalised cross correlation.
     '''
-    img_h, img_w, ch = feature_1.shape
-    ncc_scores = np.zeros((img_h, img_w))
+    f1_norm = feature_1 / np.linalg.norm(feature_1, axis=2, keepdims=True) + 10e-06
+    f2_norm = feature_2 / np.linalg.norm(feature_2, axis=2, keepdims=True) + 10e-06
 
-    # ncc_scores = np.sum(feature_1 * feature_2, axis=2) / np.sqrt(
-    #     np.sum(np.square(feature_1), axis=2) * np.sum(np.square(feature_2), axis=2)
-    # )
-    ncc_scores = np.sum(feature_1 * feature_2, axis=2) / (
-            np.linalg.norm(feature_1, ord=2, axis=2) * np.linalg.norm(feature_2, ord=2, axis=2) + 1e-3
-    )
-
-
+    ncc_scores = (f1_norm * f2_norm).sum(axis=2)
     return ncc_scores
 
 
